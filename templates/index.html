@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Potato Plant Disease Prediction</title>
+    <style>
+        /* Full-page white background */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* Set entire page background to white */
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the page takes full height of the viewport */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Center the content */
+        .container {
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        .upload-section {
+            margin-bottom: 20px;
+        }
+
+        .upload-section input[type="file"] {
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .result-section img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .result-section h3 {
+            color: #333;
+        }
+
+        .result-section .confidence {
+            font-size: 20px;
+            color: #FF6347;
+        }
+
+        .class-description {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .class-description p {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Potato Plant Disease Prediction</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="upload-section">
+                <label for="file">Upload Potato Leaf Image:</label><br><br>
+                <input type="file" name="file" id="file" required>
+            </div>
+            <button class="btn" type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-section" style="display: block;">
+            <h3>Prediction: {{ prediction }}</h3>
+            <p class="confidence">Confidence: {{ confidence }}%</p>
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Uploaded Image">
+
+            <div class="class-description">
+                <h4>Class Descriptions:</h4>
+                <p><strong>Early Blight:</strong> Early Blight is a common fungal disease caused by *Alternaria solani*, affecting leaves, stems, and fruits, characterized by dark, concentric rings on leaves.</p>
+                <p><strong>Late Blight:</strong> Late Blight is caused by the pathogen *Phytophthora infestans* and can lead to severe crop losses, manifesting as water-soaked lesions, typically on leaves, stems, and fruits. It spreads quickly in humid conditions.</p>
+                <p><strong>Healthy:</strong> Healthy potato plants show no signs of disease and have green, robust leaves and stems without any lesions, spots, or discoloration.</p>
+            </div>
+        </div>
+        {% elif error_message %}
+        <div class="result-section" style="display: block;">
+            <h3 style="color:red;">Error: {{ error_message }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
